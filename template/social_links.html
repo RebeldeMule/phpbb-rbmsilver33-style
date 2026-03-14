@@ -1,0 +1,62 @@
+{# ----------------------------------------------------------------------------
+Don't change this file unless you know what you're doing.
+Use the config.html file to modify icon settings,
+or install the Damaïo Configuration extension:
+https://github.com/cabot/damaioconfiguration
+---------------------------------------------------------------------------- #}
+
+{% set social_links = [
+{'href': definition.RBMSILVER33_TELEGRAM, 'title': 'Telegram', 'customtitle': definition.RBMSILVER33_TELEGRAM_NAME},
+{'href': definition.RBMSILVER33_INSTAGRAM, 'title': 'Instagram', 'customtitle': definition.RBMSILVER33_INSTAGRAM_NAME},
+{'href': definition.RBMSILVER33_TWITTER, 'title': 'X-Twitter', 'customtitle': definition.RBMSILVER33_TWITTER_NAME},
+{'href': definition.RBMSILVER33_FACEBOOK, 'title': 'Facebook', 'customtitle': definition.RBMSILVER33_FACEBOOK_NAME},
+{'href': definition.RBMSILVER33_GITHUB, 'title': 'GitHub', 'customtitle': definition.RBMSILVER33_GITHUB_NAME},
+{'href': definition.RBMSILVER33_YOUTUBE, 'title': 'YouTube', 'customtitle': definition.RBMSILVER33_YOUTUBE_NAME},
+{'href': definition.RBMSILVER33_BLUESKY, 'title': 'Bluesky', 'customtitle': definition.RBMSILVER33_BLUESKY_NAME},
+{'href': definition.RBMSILVER33_DEVIANTART, 'title': 'DeviantArt', 'customtitle': definition.RBMSILVER33_DEVIANTART_NAME},
+{'href': definition.RBMSILVER33_DISCORD, 'title': 'Discord', 'customtitle': definition.RBMSILVER33_DISCORD_NAME},
+{'href': definition.RBMSILVER33_FLICKR, 'title': 'Flickr', 'customtitle': definition.RBMSILVER33_FLICKR_NAME},
+{'href': definition.RBMSILVER33_LINKEDIN, 'title': 'LinkedIn', 'customtitle': definition.RBMSILVER33_LINKEDIN_NAME},
+{'href': definition.RBMSILVER33_MASTODON, 'title': 'Mastodon', 'customtitle': definition.RBMSILVER33_MASTODON_NAME},
+{'href': definition.RBMSILVER33_PAYPAL, 'title': 'PayPal', 'customtitle': definition.RBMSILVER33_PAYPAL_NAME},
+{'href': definition.RBMSILVER33_PINTEREST, 'title': 'Pinterest', 'customtitle': definition.RBMSILVER33_PINTEREST_NAME},
+{'href': definition.RBMSILVER33_REDDIT, 'title': 'Reddit', 'customtitle': definition.RBMSILVER33_REDDIT_NAME},
+{'href': definition.RBMSILVER33_SKYPE, 'title': 'Skype', 'customtitle': definition.RBMSILVER33_SKYPE_NAME},
+{'href': definition.RBMSILVER33_SNAPCHAT, 'title': 'Snapchat', 'customtitle': definition.RBMSILVER33_SNAPCHAT_NAME},
+{'href': definition.RBMSILVER33_SOUNDCLOUD, 'title': 'SoundCloud', 'customtitle': definition.RBMSILVER33_SOUNDCLOUD_NAME},
+{'href': definition.RBMSILVER33_STEAM, 'title': 'Steam', 'customtitle': definition.RBMSILVER33_STEAM_NAME},
+{'href': definition.RBMSILVER33_TIKTOK, 'title': 'TikTok', 'customtitle': definition.RBMSILVER33_TIKTOK_NAME},
+{'href': definition.RBMSILVER33_TUMBLR, 'title': 'Tumblr', 'customtitle': definition.RBMSILVER33_TUMBLR_NAME},
+{'href': definition.RBMSILVER33_VKONTAKTE, 'title': 'VKontakte', 'customtitle': definition.RBMSILVER33_VKONTAKTE_NAME},
+{'href': definition.RBMSILVER33_WHATSAPP, 'title': 'WhatsApp', 'customtitle': definition.RBMSILVER33_WHATSAPP_NAME}
+] %}
+
+{% set rbmsilver33_has_social_link = social_links|filter(social => social.href) is not empty %}
+{% set rbmsilver33_has_feed_link = S_ENABLE_FEEDS and definition.RBMSILVER33_FEED %}
+
+{% if rbmsilver33_has_social_link or rbmsilver33_has_feed_link %}
+<div class="socialinks">
+	<ul>
+		{% apply spaceless %}
+		{% for social in social_links if social.href %}
+		<li class="socialinks-list-item rbmsilver33-footer-{{ social.title|lower }}">
+			<a href="{{ social.href }}" title="{{ social.customtitle|default(social.title) }}">
+				{{ include('social_icons/' ~ social.title|lower ~ '.svg', {
+				'aria_label': social.customtitle|default(social.title)
+				}, ignore_missing = true) }}
+			</a>
+		</li>
+		{% endfor %}
+		{% if rbmsilver33_has_feed_link %}
+		<li class="socialinks-list-item rbmsilver33-footer-rss">
+			<a type="application/rss+xml" href="{{ U_FEED }}" title="{{ lang('FEED') ~ ' - ' ~ SITENAME }}">
+				{{ include('social_icons/rss.svg', {
+				'aria_label': lang('FEED') ~ ' - ' ~ SITENAME
+				}, ignore_missing = true) }}
+			</a>
+		</li>
+		{% endif %}
+		{% endapply %}
+	</ul>
+</div>
+{% endif %}

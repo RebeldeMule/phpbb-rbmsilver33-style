@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html dir="{{ S_CONTENT_DIRECTION }}" lang="{{ S_USER_LANG }}" class="rbmsilver33">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="light dark">
+	{{ META }}
+	<title>{{ SITENAME }} &bull; {% if S_IN_MCP %}{{ lang('MCP') }} &bull; {% elseif S_IN_UCP %}{{ lang('UCP') }} &bull;
+		{% endif %}{{ PAGE_TITLE }}</title>
+	{% include 'config.html' %}
+	<link href="{{ T_FONT_AWESOME_LINK }}" rel="stylesheet">
+	<link rel="preload" href="{{ T_THEME_PATH }}/fonts/rubik-regular.woff2" as="font" type="font/woff2" crossorigin="">
+	<link href="{{ ROOT_PATH }}styles/prosilver/theme/stylesheet.css?assets_version={{ T_ASSETS_VERSION }}"
+		rel="stylesheet">
+	<script>if (localStorage.sideoftheforce) document.documentElement.setAttribute("data-theme", localStorage.sideoftheforce);</script>
+	<link href="{{ T_THEME_PATH }}/base.css?assets_version={{ T_ASSETS_VERSION }}" rel="stylesheet">
+
+	{% if S_CONTENT_DIRECTION eq 'rtl' %}
+	<link href="{{ ROOT_PATH }}styles/prosilver/theme/bidi.css?assets_version={{ T_ASSETS_VERSION }}" rel="stylesheet">
+	{% endif %}
+
+	{% DEFINE POPUP = 1 %}
+
+	{% EVENT simple_header_head_append %}
+
+	{{ definition.STYLESHEETS }}
+
+	{% EVENT simple_header_stylesheets_after %}
+
+</head>
+
+<body id="phpbb" class="nojs {{ S_CONTENT_DIRECTION }} {{ BODY_CLASS }}">
+
+	{% EVENT simple_header_body_before %}
+
+	<div id="wrap" class="wrap">
+		<a id="top" class="top-anchor"></a>
+		<div id="page-body" class="page-body" role="main">

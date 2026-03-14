@@ -1,0 +1,129 @@
+
+<script>
+	var form_name = 'postform';
+	var text_name = {% if SIG_EDIT %}'signature'{% else %}'message'{% endif %};
+	var load_draft = false;
+	var upload = false;
+
+	// Define the bbCode tags
+	var bbcode = new Array();
+	var bbtags = new Array('[b]','[/b]','[i]','[/i]','[u]','[/u]','[quote]','[/quote]','[code]','[/code]','[list]','[/list]','[list=]','[/list]','[img]','[/img]','[url]','[/url]','[flash=]', '[/flash]','[size=]','[/size]'{% for custom_tag in custom_tags %}, {{ custom_tag.BBCODE_NAME }}{% endfor %});
+	var imageTag = false;
+
+	function change_palette()
+	{
+		phpbb.toggleDisplay('colour_palette');
+		e = document.getElementById('colour_palette');
+
+		if (e.style.display == 'block')
+		{
+			document.getElementById('bbpalette').value = '{LA_FONT_COLOR_HIDE}';
+		}
+		else
+		{
+			document.getElementById('bbpalette').value = '{LA_FONT_COLOR}';
+		}
+	}
+</script>
+<!-- INCLUDEJS {T_ASSETS_PATH}/javascript/editor.js -->
+
+{% if S_BBCODE_ALLOWED %}
+<div id="colour_palette" style="display: none;">
+	<dl style="clear: left;">
+		<dt><label>{L_FONT_COLOR}{L_COLON}</label></dt>
+		<dd id="color_palette_placeholder" class="color_palette_placeholder" data-color-palette="h" data-height="12" data-width="15" data-bbcode="true"></dd>
+	</dl>
+</div>
+
+<!-- EVENT posting_editor_buttons_before -->
+<div id="format-buttons" class="format-buttons">
+	<button type="button" class="button button-icon-only bbcode-b" accesskey="b" name="addbbcode0" value=" B " onclick="bbstyle(0)" title="{L_BBCODE_B_HELP}">
+		<i class="icon rbmbbcode fa-bold fa-fw" aria-hidden="true"></i>
+	</button>
+	<button type="button" class="button button-icon-only bbcode-i" accesskey="i" name="addbbcode2" value=" i " onclick="bbstyle(2)" title="{L_BBCODE_I_HELP}">
+		<i class="icon rbmbbcode fa-italic fa-fw" aria-hidden="true"></i>
+	</button>
+	<button type="button" class="button button-icon-only bbcode-u" accesskey="u" name="addbbcode4" value=" u " onclick="bbstyle(4)" title="{L_BBCODE_U_HELP}">
+		<i class="icon rbmbbcode fa-underline fa-fw" aria-hidden="true"></i>
+	</button>
+	{% if S_BBCODE_QUOTE %}
+	<button type="button" class="button button-icon-only bbcode-quote" accesskey="q" name="addbbcode6" value="Quote" onclick="bbstyle(6)" title="{L_BBCODE_Q_HELP}">
+		<i class="icon rbmbbcode fa-quote-left fa-fw" aria-hidden="true"></i>
+	</button>
+	{% endif %}
+	<button type="button" class="button button-icon-only bbcode-code" accesskey="c" name="addbbcode8" value="Code" onclick="bbstyle(8)" title="{L_BBCODE_C_HELP}">
+		<i class="icon rbmbbcode fa-code fa-fw" aria-hidden="true"></i>
+	</button>
+	<button type="button" class="button button-icon-only bbcode-align" name="addbbcode22" value="align" onclick="bbstyle(22)" title="Alinear Texto: [align=left|center|right|justify]texto[/align]">
+		<i class="icon rbmbbcode fa-align-center fa-fw" aria-hidden="true"></i>
+	</button>
+	<button type="button" class="button button-icon-only bbcode-tab" name="addbbcode40" value="tab" onclick="bbstyle(40)" title="Añade una sangría de párrafo a la izquierda">
+		<i class="icon rbmbbcode fa-indent fa-fw" aria-hidden="true"></i>
+	</button>
+	<button type="button" class="button button-icon-only bbcode-list" accesskey="l" name="addbbcode10" value="List" onclick="bbstyle(10)" title="{L_BBCODE_L_HELP}">
+		<i class="icon rbmbbcode fa-list fa-fw" aria-hidden="true"></i>
+	</button>
+	<button type="button" class="button button-icon-only bbcode-list-" accesskey="o" name="addbbcode12" value="List=" onclick="bbstyle(12)" title="{L_BBCODE_O_HELP}">
+		<i class="icon rbmbbcode fa-list-ol fa-fw" aria-hidden="true"></i>
+	</button>
+	<button type="button" class="button button-icon-only bbcode-asterisk" accesskey="y" name="addlistitem" value="[*]" onclick="bbstyle(-1)" title="{L_BBCODE_LISTITEM_HELP}">
+		<i class="icon rbmbbcode fa-asterisk fa-fw" aria-hidden="true"></i>
+	</button>
+	{% if S_BBCODE_FLASH %}
+	<button type="button" class="button button-icon-only bbcode-flash" accesskey="d" name="addbbcode18" value="Flash" onclick="bbstyle(18)" title="{L_BBCODE_D_HELP}">
+		<i class="icon rbmbbcode fa-flash fa-fw" aria-hidden="true"></i>
+	</button>
+	{% endif %}
+	<button type="button" class="button button-icon-only bbcode-color" name="bbpalette" id="bbpalette" value="{L_FONT_COLOR}" onclick="change_palette();" title="{L_BBCODE_S_HELP}">
+		<i class="icon rbmbbcode fa-tint fa-fw" aria-hidden="true"></i>
+	</button>
+	<select name="addbbcode20" class="bbcode-size" onchange="bbfontstyle('[size=' + this.form.addbbcode20.options[this.form.addbbcode20.selectedIndex].value + ']', '[/size]');this.form.addbbcode20.selectedIndex = 2;" title="{L_BBCODE_F_HELP}">
+		<option value="50">{L_FONT_TINY}</option>
+		<option value="85">{L_FONT_SMALL}</option>
+		<option value="100" selected="selected">{L_FONT_NORMAL}</option>
+		{% if not MAX_FONT_SIZE or MAX_FONT_SIZE >= 150 %}
+			<option value="150">{L_FONT_LARGE}</option>
+			{% if not MAX_FONT_SIZE or MAX_FONT_SIZE >= 200 %}
+				<option value="200">{L_FONT_HUGE}</option>
+			{% endif %}
+		{% endif %}
+	</select>
+
+	<!-- EVENT posting_editor_buttons_custom_tags_before -->
+
+	{% if S_BBCODE_IMG %}
+	<button type="button" class="button button-icon-only bbcode-img" accesskey="p" name="addbbcode14" value="Img" onclick="bbstyle(14)" title="{L_BBCODE_P_HELP}">
+		<i class="icon rbmbbcode fa-image fa-fw" aria-hidden="true"></i>
+	</button>
+	{% endif %}
+	<button type="button" class="button button-icon-only bbcode-imgsize-" name="addbbcode32" value="imgsize=" onclick="bbstyle(32)" title="[imgsize=ALTOxANCHO]http://imagen_url[/imgsize]">
+		<i class="icon rbmbbcode fa-file-image-o fa-fw" aria-hidden="true"></i>
+		<i class="icon rbmbbcode fa-compress fa-fw" aria-hidden="true" style="margin-left: -6px;"></i>
+	</button>
+	<button type="button" class="button button-icon-only bbcode-media" accesskey="m" name="addmedia" value="Media" onclick="bbfontstyle('[media]', '[/media]');" title="Media Embed: [media]http://URL_media[/media]">
+		<i class="icon rbmbbcode fa-television fa-fw" aria-hidden="true"></i>
+	</button>
+	<button type="button" class="button button-icon-only bbcode-dd" name="addbbcode24" value="dd" onclick="bbstyle(24)" title="Cuadro para Descargas Directas">
+		<i class="icon rbmbbcode fa-download fa-fw" aria-hidden="true"></i>
+	</button>
+	<button type="button" class="button button-icon-only bbcode-hr" name="addbbcode26" value="hr" onclick="bbstyle(26)" title="Separador: [hr][/hr]">
+		<i class="icon rbmbbcode fa-window-minimize fa-fw" aria-hidden="true"></i>
+	</button>
+	<button type="button" class="button button-icon-only bbcode-minificha" name="addbbcode34" value="minificha" onclick="bbstyle(34)" title="Minifichas de la RMDb al Foro">
+		<i class="icon rbmbbcode fa-id-card fa-fw" aria-hidden="true"></i>
+	</button>
+	<button type="button" class="button button-icon-only bbcode-spoiler" name="addbbcode38" value="spoiler" onclick="bbstyle(38)" title="Mostrar / Ocultar">
+		<i class="icon rbmbbcode fa-stack-exchange fa-fw" aria-hidden="true"></i>
+	</button>
+	{% if S_LINKS_ALLOWED %}
+	<button type="button" class="button button-icon-only bbcode-url" accesskey="w" name="addbbcode16" value="URL" onclick="bbstyle(16)" title="{L_BBCODE_W_HELP}">
+		<i class="icon rbmbbcode fa-link fa-fw" aria-hidden="true"></i>
+	</button>
+	{% endif %}
+	<button type="button" class="button button-icon-only bbcode-tg" name="addbbcode42" value="tg" onclick="bbstyle(42)" title="[tg=Canal de telegram]Número del mensaje en el canal[/tg]">
+		<i class="icon rbmbbcode fa-telegram fa-fw" aria-hidden="true"></i>
+	</button>
+
+</div>
+<!-- EVENT posting_editor_buttons_after -->
+<!-- ENDIF -->
