@@ -1194,8 +1194,8 @@ p.author {
 	color: var(--text-color-2);
 }
 
-.responsive-hide {
-	display: none !important;
+.topic-poster.responsive-hide {
+    display: none !important;
 }
 
 .back2top .top {
@@ -1615,6 +1615,14 @@ input[type="radio"]:checked::before {
 	.cp-main .post,
 	.cp-main .panel {
 		border-radius: 0;
+	}
+
+	dd.posts {
+		display: none !important;
+	}
+
+	div.responsive-show {
+		display: none !important;
 	}
 
 	table.responsive.show-header thead,
