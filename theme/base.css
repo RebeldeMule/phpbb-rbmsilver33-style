@@ -310,6 +310,7 @@ ul.navlinks {
 	margin-bottom: 35px;
 	background-color: var(--color-3);
 	border-radius: var(--border-radius-big);
+	scroll-margin-top: 44px;
 }
 
 .postlink {
@@ -1552,12 +1553,6 @@ input[type="radio"]:checked::before {
 .sticky-nav .main-width {
 	box-sizing: border-box;
 	padding: 0 10px;
-}
-
-.has-sticky-nav .post,
-.has-sticky-nav .faq dt,
-.has-sticky-nav .boardrules-rules li {
-	scroll-margin-top: 2.5rem;
 }
 
 /* Media queries */
