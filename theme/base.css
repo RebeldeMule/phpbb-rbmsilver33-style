@@ -333,6 +333,7 @@ ul.navlinks {
 	background-color: var(--main-color1);
 	border: 1px solid var(--main-color1);
 	color: #ffffff;
+	padding: 3px 5px 0 5px;
 }
 
 .pagination li.page-jump a {
@@ -460,6 +461,10 @@ li.row dd {
     height: 100%;
 }
 
+dd.views {
+    display: none !important;
+}
+
 li.header dl.row-item dt .list-inner {
 	padding-left: 10px;
 }
@@ -506,6 +511,10 @@ blockquote {
 	margin: 2em 1px 2em 40px;
 	background-color: var(--color-2);
 	border-color: var(--border-color-2);
+}
+
+blockquote cite {
+    margin-bottom: 1em;
 }
 
 blockquote.uncited {
@@ -1036,6 +1045,10 @@ a.header-avatar img {
 .row-item .fa-file-o::before,
 .lastpost .fa-external-link-square::before {
 	font-size: 12px;
+}
+
+dd.lastpost > span {
+    padding-top: 1px;
 }
 
 .dropdown-contents .fa-check-circle::before,
