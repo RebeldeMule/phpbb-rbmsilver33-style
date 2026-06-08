@@ -523,7 +523,9 @@ blockquote.uncited {
 
 blockquote cite:before,
 .uncited:before {
-	float: left;
+	float: right;
+    margin: 4px 0 4px 4px;
+    opacity: 0.4;
 }
 
 .button {
