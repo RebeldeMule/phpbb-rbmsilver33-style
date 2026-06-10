@@ -518,14 +518,22 @@ blockquote cite {
 }
 
 blockquote.uncited {
-	padding-top: 5px;
+	padding-top: 10px;
 }
 
 blockquote cite:before,
 .uncited:before {
 	float: right;
-    margin: 4px 0 4px 4px;
     opacity: 0.4;
+	content: '\f10e';
+}
+
+blockquote cite:before {
+    margin: 4px 4px 10px 10px;
+}
+
+.uncited:before {
+    margin: -3px 0 10px 10px;
 }
 
 .button {
@@ -1688,6 +1696,10 @@ input[type="radio"]:checked::before {
         text-align: left;
     }
 
+	ul.topiclist.forums dt {
+        margin-right: auto;
+    }
+
     .rightside>a>i,
     .rightside>i,
     .rbmmods {
@@ -2295,7 +2307,8 @@ ul.cplist {
 .navigation a:active,
 .navigation .active-subsection a,
 .navigation .active-subsection a:hover,
-.navigation .active-subsection a:active {
+.navigation .active-subsection a:active,
+.minitabs .tab>a {
 	color: #ffffff;
 }
 
