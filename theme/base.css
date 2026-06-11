@@ -509,6 +509,7 @@ a.subforum {
 
 blockquote {
 	margin: 2em 1px 2em 40px;
+	padding: 10px;
 	background-color: var(--color-2);
 	border-color: var(--border-color-2);
 }
@@ -517,23 +518,16 @@ blockquote cite {
     margin-bottom: 1em;
 }
 
-blockquote.uncited {
-	padding-top: 10px;
-}
-
 blockquote cite:before,
 .uncited:before {
 	float: right;
     opacity: 0.4;
 	content: '\f10e';
-}
-
-blockquote cite:before {
-    margin: 4px 4px 10px 10px;
+    margin: 4px -5px 10px 10px;
 }
 
 .uncited:before {
-    margin: -3px 0 10px 10px;
+    margin-top: -3px;
 }
 
 .button {
