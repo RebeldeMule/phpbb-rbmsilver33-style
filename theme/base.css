@@ -189,9 +189,9 @@ h3 {
 
 hr {
 	border: 0;
-	border-top: 1px solid var(--border-color-2);
-	border-color: var(--color-3);
-	margin: 10px 0;
+	border-top: 1px solid var(--text-color-2);
+	margin: 40px 0;
+	width: 100px;
 }
 
 a.forumtitle,
@@ -504,8 +504,7 @@ a.subforum {
 }
 
 .content_bloque {
-	margin: 0.8em 0 1.3em 3em;
-	display: inline-block;
+	margin: 15px 0 15px 3em;
 }
 
 blockquote {
