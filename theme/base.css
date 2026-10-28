@@ -462,16 +462,16 @@ li.row dd {
 }
 
 /* Align topic list elements vertically (icons from extensions, title, pagination) */
-ul.topiclist li.row dl.row-item {
+ul.topiclist:not(.forums) li.row dl.row-item {
 	align-items: center;
 }
 
-ul.topiclist li.row dl.row-item dt {
+ul.topiclist:not(.forums) li.row dl.row-item dt {
 	align-items: center;
 	min-height: 0;
 }
 
-ul.topiclist li.row dl.row-item dt .list-inner {
+ul.topiclist:not(.forums) li.row dl.row-item dt .list-inner {
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
@@ -479,22 +479,22 @@ ul.topiclist li.row dl.row-item dt .list-inner {
 	line-height: 1.4;
 }
 
-ul.topiclist li.row dl.row-item dt .list-inner > * {
+ul.topiclist:not(.forums) li.row dl.row-item dt .list-inner > * {
 	display: inline-flex;
 	align-items: center;
 	vertical-align: middle;
 	line-height: 1.4;
 }
 
-ul.topiclist li.row .topictitle,
-ul.topiclist li.row a.topictitle {
+ul.topiclist:not(.forums) li.row .topictitle,
+ul.topiclist:not(.forums) li.row a.topictitle {
 	display: inline-flex;
 	align-items: center;
 	vertical-align: middle;
 	line-height: 1.4;
 }
 
-ul.topiclist li.row .pagination {
+ul.topiclist:not(.forums) li.row .pagination {
 	display: inline-flex;
 	align-items: center;
 	flex-wrap: nowrap;
@@ -503,23 +503,38 @@ ul.topiclist li.row .pagination {
 	margin: 0;
 }
 
-ul.topiclist li.row .pagination li {
+ul.topiclist:not(.forums) li.row .pagination li {
 	display: inline-flex;
 	align-items: center;
 }
 
-ul.topiclist li.row .pagination li a,
-ul.topiclist li.row .pagination li span {
+ul.topiclist:not(.forums) li.row .pagination li a,
+ul.topiclist:not(.forums) li.row .pagination li span {
 	display: inline-flex;
 	align-items: center;
 	line-height: 1;
 }
 
-ul.topiclist li.row dl.row-item dt .list-inner img,
-ul.topiclist li.row dl.row-item dt .list-inner i,
-ul.topiclist li.row dl.row-item dt .list-inner span {
+ul.topiclist:not(.forums) li.row dl.row-item dt .list-inner img,
+ul.topiclist:not(.forums) li.row dl.row-item dt .list-inner i,
+ul.topiclist:not(.forums) li.row dl.row-item dt .list-inner span {
 	align-self: center;
 	vertical-align: middle;
+}
+
+/* Keep forum list layout unchanged */
+ul.topiclist.forums li.row dl.row-item dt .list-inner {
+	display: block;
+	align-items: initial;
+	flex-wrap: initial;
+	gap: initial;
+}
+
+ul.topiclist.forums li.row dl.row-item dt .list-inner > * {
+	display: initial;
+	align-items: initial;
+	vertical-align: initial;
+	line-height: inherit;
 }
 
 ul.topiclist li.row .pagination li {
