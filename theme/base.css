@@ -441,24 +441,106 @@ li.rightside:hover {
 
 li.row {
 	display: flex !important;
-    align-items: center;
-    width: 100%;
+	align-items: center;
+	width: 100%;
 	border-top: none;
 	border-bottom-color: var(--color-2);
 }
 
 li.row dl {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    margin-bottom: 0;
+	flex-grow: 1;
+	display: flex;
+	align-items: center;
+	margin-bottom: 0;
 }
 
 li.row dd {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 100%;
+}
+
+/* Align topic list elements vertically (icons from extensions, title, pagination) */
+ul.topiclist li.row dl.row-item {
+	align-items: center;
+}
+
+ul.topiclist li.row dl.row-item dt {
+	align-items: center;
+	min-height: 0;
+}
+
+ul.topiclist li.row dl.row-item dt .list-inner {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 4px;
+	line-height: 1.4;
+}
+
+ul.topiclist li.row dl.row-item dt .list-inner > * {
+	display: inline-flex;
+	align-items: center;
+	vertical-align: middle;
+	line-height: 1.4;
+}
+
+ul.topiclist li.row .topictitle,
+ul.topiclist li.row a.topictitle {
+	display: inline-flex;
+	align-items: center;
+	vertical-align: middle;
+	line-height: 1.4;
+}
+
+ul.topiclist li.row .pagination {
+	display: inline-flex;
+	align-items: center;
+	flex-wrap: nowrap;
+	vertical-align: middle;
+	line-height: 1;
+	margin: 0;
+}
+
+ul.topiclist li.row .pagination li {
+	display: inline-flex;
+	align-items: center;
+}
+
+ul.topiclist li.row .pagination li a,
+ul.topiclist li.row .pagination li span {
+	display: inline-flex;
+	align-items: center;
+	line-height: 1;
+}
+
+ul.topiclist li.row dl.row-item dt .list-inner img,
+ul.topiclist li.row dl.row-item dt .list-inner i,
+ul.topiclist li.row dl.row-item dt .list-inner span {
+	align-self: center;
+	vertical-align: middle;
+}
+
+ul.topiclist li.row .pagination li {
+	display: inline-flex;
+	align-items: center;
+}
+
+ul.topiclist li.row .pagination li a,
+ul.topiclist li.row .pagination li span {
+	display: inline-flex;
+	align-items: center;
+	line-height: 1;
+}
+
+/* Ensure extension inserted elements (stars, badges) align properly */
+ul.topiclist li.row dl.row-item dt .list-inner .forum-image,
+ul.topiclist li.row dl.row-item dt .list-inner img,
+ul.topiclist li.row dl.row-item dt .list-inner i,
+ul.topiclist li.row dl.row-item dt .list-inner span {
+	vertical-align: middle;
+	align-self: center;
 }
 
 dd.views {
